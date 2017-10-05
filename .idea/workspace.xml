@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c7cacf5-bcb4-453b-84f2-7771f53dc26a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/SensorInput.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/objects.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Perception/ObstructionDetection.java" afterPath="$PROJECT_DIR$/src/Perception/ObstructionDetection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SystemManagement/Monitoring.java" afterPath="$PROJECT_DIR$/src/SystemManagement/Monitoring.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -708,7 +703,14 @@
       <option name="project" value="LOCAL" />
       <updated>1507176354346</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="CHanged the failure scenario">
+      <created>1507225053901</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1507225053901</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -783,7 +785,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="Partial implementation. TODO: FIx classpath issue" />
     <MESSAGE value="Dirty fix. Working implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dirty fix. Working implementation" />
+    <MESSAGE value="CHanged the failure scenario" />
+    <option name="LAST_COMMIT_MESSAGE" value="CHanged the failure scenario" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
