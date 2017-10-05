@@ -1,6 +1,7 @@
 package SystemManagement;
 
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -11,18 +12,22 @@ public class Monitoring  {
     public static void main(String[] args) {
         String input;
         Boolean alive=true;
+        String classname=SysManagement.class.getName();
+//        System.out.println(classname);
         try
         {
             while (alive) {
-                //C:\Program Files\Java\jdk1.8.0_121\
-                ProcessBuilder builder = new ProcessBuilder("java", "Main");
-                builder.redirectErrorStream(true);
 
+//                Runtime rn=Runtime.getRuntime();
+//                Process p=rn.exec("java -cp C:\\Users\\smrut\\OneDrive\\Documents\\755-Arch\\AutoCar\\AutoCar\\out\\production\\755-Arch SysManagement");
+                ProcessBuilder builder = new ProcessBuilder("java", "-cp","C:\\Users\\smrut\\OneDrive\\Documents\\755-Arch\\AutoCar\\AutoCar\\out\\production\\755-Arch","Perception.ObstructionDetection");
+//               builder.redirectErrorStream(true);
+//
                 Process heartBeat = builder.start();
 
                 InputStream beats=heartBeat.getInputStream();
-
-                System.out.println(beats.available());
+//
+//
                 if(beats.available()==0){
 
                     alive=false;
@@ -35,13 +40,14 @@ public class Monitoring  {
                     System.out.println(input);
                 }
                 bf.close();
-                System.out.println("No beat");
+                System.out.println("No Heartbeat");
 
                 heartBeat.destroy();
+
             }
         }
         catch (Exception ex){
-            ex.printStackTrace();
+            System.out.println("The monitoring process has failed");
         }
     }
 
