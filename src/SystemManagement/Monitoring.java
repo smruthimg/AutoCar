@@ -1,7 +1,6 @@
 package SystemManagement;
 
 import java.io.*;
-import java.sql.SQLOutput;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -19,13 +18,13 @@ public class Monitoring  {
             while (alive) {
 
 //                Runtime rn=Runtime.getRuntime();
-//                Process p=rn.exec("java -cp C:\\Users\\smrut\\OneDrive\\Documents\\755-Arch\\AutoCar\\AutoCar\\out\\production\\755-Arch SysManagement");
-                ProcessBuilder builder = new ProcessBuilder("java", "-cp","C:\\Users\\smrut\\OneDrive\\Documents\\755-Arch\\AutoCar\\AutoCar\\out\\production\\755-Arch","Perception.ObstructionDetection",args[0]);
+               ProcessBuilder builder = new ProcessBuilder("java", "-cp","C:\\Users\\smrut\\OneDrive\\Documents\\755-Arch\\AutoCar\\AutoCar\\out\\production\\755-Arch","Perception.ObstructionDetection",args[0]);
               builder.redirectErrorStream(true);
 //
                 Process heartBeat = builder.start();
 
                 InputStream beats=heartBeat.getInputStream();
+//                InputStream stderr=heartBeat.getErrorStream();
 //
 //
                 if(beats.available()==0){
@@ -33,15 +32,12 @@ public class Monitoring  {
                     alive=false;
 
                 }
-//                Reader beat = new InputStreamReader(heartBeat.getInputStream());
                 BufferedReader bf = new BufferedReader(new InputStreamReader(beats));
-//                System.out.println(bf);
                 while ((input = bf.readLine()) != null) {
                     System.out.println(input);
                 }
                 bf.close();
                 System.out.println("No Heartbeat. ");
-
 
                 heartBeat.destroy();
 
@@ -49,7 +45,7 @@ public class Monitoring  {
             }
         }
         catch (Exception ex){
-            ex.printStackTrace();
+//            ex.printStackTrace();
             System.out.println("The monitoring process has failed");
         }
     }
