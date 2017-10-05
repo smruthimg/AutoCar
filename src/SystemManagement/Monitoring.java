@@ -5,20 +5,24 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Created by smrut on 10/4/2017.
+ * The representation of an Monitoring component. the class is responsible
+ * for reading the heartbeat signals from Obstruction detection component
+ * and notify if the component has failed
+ * Author: Smruthi Gadenkanahalli
+ * Creation Date: 9/26/2017.
  */
 public class Monitoring  {
     public static void main(String[] args) {
         String input;
         Boolean alive=true;
         String classname=SysManagement.class.getName();
-//        System.out.println(classname);
+
         try
         {
             while (alive) {
 
 //                Runtime rn=Runtime.getRuntime();
-               ProcessBuilder builder = new ProcessBuilder("java", "-cp","C:\\Users\\smrut\\OneDrive\\Documents\\755-Arch\\AutoCar\\AutoCar\\out\\production\\755-Arch","Perception.ObstructionDetection",args[0]);
+               ProcessBuilder builder = new ProcessBuilder("java", "-cp",".\\out\\production\\755-Arch","Perception.ObstructionDetection",args[0]);
               builder.redirectErrorStream(true);
 //
                 Process heartBeat = builder.start();
@@ -37,7 +41,7 @@ public class Monitoring  {
                     System.out.println(input);
                 }
                 bf.close();
-                System.out.println("No Heartbeat. ");
+                System.out.println("No heartbeat received.The critical component has failed! ");
 
                 heartBeat.destroy();
 
