@@ -1,0 +1,8 @@
+1,car
+2,human
+3,cyclist
+4,motorbike
+5,animal
+6,orange cone
+7,intersection
+8,truck

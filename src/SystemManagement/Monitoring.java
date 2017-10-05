@@ -20,8 +20,8 @@ public class Monitoring  {
 
 //                Runtime rn=Runtime.getRuntime();
 //                Process p=rn.exec("java -cp C:\\Users\\smrut\\OneDrive\\Documents\\755-Arch\\AutoCar\\AutoCar\\out\\production\\755-Arch SysManagement");
-                ProcessBuilder builder = new ProcessBuilder("java", "-cp","C:\\Users\\smrut\\OneDrive\\Documents\\755-Arch\\AutoCar\\AutoCar\\out\\production\\755-Arch","Perception.ObstructionDetection");
-//               builder.redirectErrorStream(true);
+                ProcessBuilder builder = new ProcessBuilder("java", "-cp","C:\\Users\\smrut\\OneDrive\\Documents\\755-Arch\\AutoCar\\AutoCar\\out\\production\\755-Arch","Perception.ObstructionDetection",args[0]);
+              builder.redirectErrorStream(true);
 //
                 Process heartBeat = builder.start();
 
@@ -40,13 +40,16 @@ public class Monitoring  {
                     System.out.println(input);
                 }
                 bf.close();
-                System.out.println("No Heartbeat");
+                System.out.println("No Heartbeat. ");
+
 
                 heartBeat.destroy();
+
 
             }
         }
         catch (Exception ex){
+            ex.printStackTrace();
             System.out.println("The monitoring process has failed");
         }
     }
