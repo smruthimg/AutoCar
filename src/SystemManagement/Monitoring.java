@@ -21,7 +21,8 @@ public class Monitoring  {
         {
             while (alive) {
 
-//                Runtime rn=Runtime.getRuntime();
+//                Runtime rn=Runtime.getRuntime()
+// Creating a process to execute the Obstruction detection class
                ProcessBuilder builder = new ProcessBuilder("java", "-cp",".\\out\\production\\755-Arch","Perception.ObstructionDetection",args[0]);
               builder.redirectErrorStream(true);
 //
@@ -29,28 +30,36 @@ public class Monitoring  {
 
                 InputStream beats=heartBeat.getInputStream();
 //                InputStream stderr=heartBeat.getErrorStream();
-//
-//
+
+//Check if the heartbeat is being received.
                 if(beats.available()==0){
 
                     alive=false;
 
                 }
                 BufferedReader bf = new BufferedReader(new InputStreamReader(beats));
+
                 while ((input = bf.readLine()) != null) {
                     System.out.println(input);
                 }
                 bf.close();
                 System.out.println("No heartbeat received.The critical component has failed! ");
-
+// no heartbeat. bring out your dragon glass
                 heartBeat.destroy();
+                System.out.println("Restart Process?y/n");
+                Scanner scan=new Scanner(System.in);
+                if(scan.nextLine().equals("y")){
+                    alive=true;
+                }
 
 
             }
         }
         catch (Exception ex){
+
+            //The Monitoring process has failed #Bendtheknee
 //            ex.printStackTrace();
-            System.out.println("The monitoring process has failed");
+            System.out.println("The monitoring process has failed. Switching to manual mode");
         }
     }
 

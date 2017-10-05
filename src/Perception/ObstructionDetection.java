@@ -8,10 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by smrut on 9/26/2017.
+ * The representation of an obstruction detection component. the class is responsible
+ * for reading the input from sensors and identify the objects in the surrounding
+ * Author: Smruthi Gadenkanahalli
+ * Creation Date: 9/26/2017.
  */
 public class ObstructionDetection {
     Map<Integer,String> objMap=new HashMap<>();
+    // Scenario: Read the file with identified objects and create a dictionary wth id and name of objects
+
     private void getObjects( String fileName){
         BufferedReader br=null;
         FileReader fr=null;
@@ -36,7 +41,10 @@ public class ObstructionDetection {
 // send heartbeat alerts to Monitoring
 public static void main(String[] args) {
 
-
+//Scenario: Read the input from file SensorInput which is received from Sensors .
+    //The entries are int.
+    //Failure scenario: the input for one of the obstructions identified by the sensors is corrupted
+    // and the format is not int.
     boolean alive=true;
 
     ObstructionDetection od=new ObstructionDetection();
@@ -54,7 +62,7 @@ public static void main(String[] args) {
             String curr = br.readLine();
             while (curr != null) {
                 String inp = curr.trim();
-
+//CHeck if the entry is present in the Map.
                 if (!od.objMap.containsKey(Integer.parseInt(inp))) {
                     alive = false;
                     System.out.println("Unable to parse sensor input");
@@ -71,15 +79,12 @@ public static void main(String[] args) {
     }
     catch(NumberFormatException ne ){
         System.out.println("Unable to parse sensor input.The input from sensor is corrupted");
+        System.exit(1);
     }
     catch(Exception e){
         e.printStackTrace();
     }
-    finally{
 
-        System.out.println("Exiting Process");
-        System.exit(1);
-    }
 
 
     }
