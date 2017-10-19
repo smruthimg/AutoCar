@@ -8,61 +8,69 @@ import java.util.Scanner;
  * The representation of an Monitoring component. the class is responsible
  * for reading the heartbeat signals from Obstruction detection component
  * and notify if the component has failed
- * Author: Smruthi Gadenkanahalli
+ * Author: Smruthi Gadenkanahalli,Pratham Mehta,Umang Garg
  * Creation Date: 9/26/2017.
  */
 public class Monitoring  {
-    public static void main(String[] args) {
-        String input;
-        Boolean alive=true;
-        String classname=SysManagement.class.getName();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        // TODO Auto-generated method stub
+//        System.out.println("inside monitoring");
+        ProcessBuilder builder = new ProcessBuilder("java","Perception.ObstructionDetection", "original");
+        builder.redirectErrorStream(true);
+        Process obsDet = builder.start();
 
-        try
-        {
-            while (alive) {
+        ProcessBuilder builder2 = new ProcessBuilder("java","Perception.ObstructionDetection", "2");
+        builder2.redirectErrorStream(true);
+        Process obsDet2 = builder2.start();
 
-//                Runtime rn=Runtime.getRuntime()
-// Creating a process to execute the Obstruction detection class
-               ProcessBuilder builder = new ProcessBuilder("java", "-cp",".\\out\\production\\755-Arch","Perception.ObstructionDetection",args[0]);
-              builder.redirectErrorStream(true);
-//
-                Process heartBeat = builder.start();
+        detectHeartBeat(obsDet, obsDet2);
 
-                InputStream beats=heartBeat.getInputStream();
-//                InputStream stderr=heartBeat.getErrorStream();
-
-//Check if the heartbeat is being received.
-                if(beats.available()==0){
-
-                    alive=false;
-
-                }
-                BufferedReader bf = new BufferedReader(new InputStreamReader(beats));
-
-                while ((input = bf.readLine()) != null) {
-                    System.out.println(input);
-                }
-                bf.close();
-                System.out.println("No heartbeat received.The critical component has failed! ");
-// no heartbeat. bring out your dragon glass
-                heartBeat.destroy();
-                System.out.println("Restart Process?y/n");
-                Scanner scan=new Scanner(System.in);
-                if(scan.nextLine().equals("y")){
-                    alive=true;
-                }
-
-
-            }
-        }
-        catch (Exception ex){
-
-            //The Monitoring process has failed #Bendtheknee
-//            ex.printStackTrace();
-            System.out.println("The monitoring process has failed. Switching to manual mode");
-        }
+        obsDet.waitFor();
+        obsDet2.waitFor();
     }
 
+    static void detectHeartBeat(Process p, Process p1) throws InterruptedException, IOException {
+        int isAliveCount = 0;
+        String line = null;
+        try {
+            if(p.isAlive()) {
+                if( p.getInputStream().available() > 0) {
+                    line = new BufferedReader(new InputStreamReader(p.getInputStream())).readLine();
+
+                    System.out.println("reading from original");
+                    System.out.println(line);
+                }
+                isAliveCount++;
+            } else {
+                System.out.println("redundant is now active");
+            }
+        } catch (Exception e) {
+            p.destroyForcibly();
+            isAliveCount--;
+        }
+
+        try {
+            if(p1.isAlive()) {
+                if( p1.getInputStream().available() > 0) {
+                    line = new BufferedReader(new InputStreamReader(p1.getInputStream())).readLine();
+                    if(p.isAlive()) {
+                        System.out.println("redundant is alive");
+                    } else {
+                        System.out.println(line);
+                    }
+                }
+                isAliveCount++;
+            }
+        } catch (Exception e) {
+            System.out.println("p1 dead");
+            p1.destroyForcibly();
+            isAliveCount--;
+        }
+        if(isAliveCount > 0) {
+            Thread.sleep(1000);
+            detectHeartBeat(p, p1);
+        }
+    }
 
 
 }

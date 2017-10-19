@@ -1,26 +1,35 @@
+import SystemManagement.Monitoring;
+
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class Main {
 
-    public static void main(String[] args) {
-try{
-    ProcessBuilder builder = new ProcessBuilder("java", "SysManagement");
-    builder.redirectErrorStream(true);
+    public static void main(String[] args) throws IOException, InterruptedException {
+        // TODO Auto-generated method stub
+        ProcessBuilder builder = new ProcessBuilder("java", "SystemManagement.Monitoring");
+        Process monitor = builder.start();
 
-    Process heartBeat = builder.start();
+        BufferedReader reader = new BufferedReader( new InputStreamReader(monitor.getInputStream()));
 
-    InputStream beats=heartBeat.getInputStream();
+        String ch;
+        while((ch = reader.readLine())!= null) {
 
-    System.out.println(beats.available());
-    heartBeat.destroy();
+            System.out.println(ch);
+        }
+        reader.close();
 
-}
-catch (Exception e){
-    e.printStackTrace();
-}
+        monitor.waitFor();
+
+        System.out.println("Program complete");
     }
-}
+    }
+
