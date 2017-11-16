@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * The representation of an obstruction detection component. the class is responsible
  * for reading the input from sensors and identify the objects in the surrounding
- * Author: Smruthi Gadenkanahalli,,Pratham Mehta,Umang Garg
+ * Author: Smruthi Gadenkanahalli
  * Creation Date: 9/26/2017.
  */
 public class ObstructionDetection {
@@ -32,7 +32,7 @@ public class ObstructionDetection {
         String line = null;
         while((line = reader.readLine()) != null) {
             System.out.println(Integer.parseInt(line));
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         }
     }
 
@@ -42,7 +42,7 @@ public class ObstructionDetection {
 
         while((line = reader.readLine()) != null) {
             System.out.println(Double.parseDouble(line));
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         }
     }
 }

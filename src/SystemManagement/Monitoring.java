@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class Monitoring  {
     public static void main(String[] args) throws IOException, InterruptedException {
-        // TODO Auto-generated method stub
+
 //        System.out.println("inside monitoring");
         ProcessBuilder builder = new ProcessBuilder("java","Perception.ObstructionDetection", "original");
         builder.redirectErrorStream(true);
